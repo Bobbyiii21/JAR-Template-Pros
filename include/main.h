@@ -4,7 +4,7 @@
  * Contains common definitions and header files used throughout your PROS
  * project.
  *
- * \copyright Copyright (c) 2017-2023, Purdue University ACM SIGBots.
+ * Copyright (c) 2017-2022, Purdue University ACM SIGBots.
  * All rights reserved.
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -12,17 +12,6 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-/**
- * \file vex.h
- *
- * Default header for V5 projects
- *
- * \author Vex Robotics
- *
- * \created 1 Feb 2019
- */
-
-#pragma once // Redundant but makes the linter shut up
 #ifndef _PROS_MAIN_H_
 #define _PROS_MAIN_H_
 
@@ -33,7 +22,7 @@
  *
  * For instance, E_CONTROLLER_MASTER has a shorter name: CONTROLLER_MASTER.
  * E_CONTROLLER_MASTER is pedantically correct within the PROS styleguide, but
- * not convenient for most student programmers.
+ * not convienent for most student programmers.
  */
 #define PROS_USE_SIMPLE_NAMES
 
@@ -47,28 +36,17 @@
 
 #include "api.h"
 
-#ifdef __cplusplus
-#include <string>
-#include <cmath>
-#else /* (not) __cplusplus */
-#include <string.h>
-#include <math.h>
-#endif /* __cplusplus */
-
 /**
  * You should add more #includes here
  */
 //#include "okapi/api.hpp"
 //#include "pros/api_legacy.h"
-
 #include "JAR-Template/odom.h"
 #include "JAR-Template/drive.h"
 #include "JAR-Template/util.h"
 #include "JAR-Template/PID.h"
 
 #include "autons.h"
-
-
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
  * Motor, you can use the namespace with the following commented out line.
@@ -97,14 +75,6 @@ void opcontrol(void);
 #ifdef __cplusplus
 }
 #endif
-
-#define waitUntil(condition)                                                   \
-  do {                                                                         \
-    wait(5, msec);                                                             \
-  } while (!(condition))
-
-#define repeat(iterations)                                                     \
-  for (int iterator = 0; iterator < iterations; iterator++)
 
 #ifdef __cplusplus
 /**
