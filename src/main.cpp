@@ -90,6 +90,16 @@ Drive chassis(
 
 );
 
+void initialize(){
+  
+
+  pros::lcd::initialize();
+  pros::lcd::set_background_color(lv_color_hex(0x376DB3));
+  pros::lcd::set_text_color(lv_color_hex(0xFFFFFF));
+}
+
+
+
 int current_auton_selection = 0;
 bool auto_started = false;
 
@@ -104,42 +114,81 @@ void competition_initialize(void)
     switch (current_auton_selection)
     { // Tap the brain screen to cycle through autons.
     case 0:
-      pros::screen::print(TEXT_MEDIUM, 50, 50, "Drive Test");
+      pros::lcd::clear();
+      pros::lcd::set_text(1, "Drive Test");
+      //pros::lcd::print(TEXT_MEDIUM, 50, 50, "Drive Test");
       break;
     case 1:
-      pros::screen::print(TEXT_MEDIUM, 50, 50, "Drive Test");
+      pros::lcd::clear();
+      pros::lcd::set_text(1, "Drive Test");
+      //pros::screen::print(TEXT_MEDIUM, 50, 50, "Drive Test");
       break;
     case 2:
-      pros::screen::print(TEXT_MEDIUM, 50, 50, "Turn Test");
+      pros::lcd::clear();
+      pros::lcd::set_text(1, "Turn Test");
+      //pros::screen::print(TEXT_MEDIUM, 50, 50, "Turn Test");
       break;
     case 3:
-      pros::screen::print(TEXT_MEDIUM, 50, 50, "Swing Test");
+      pros::lcd::clear();
+      pros::lcd::set_text(1, "Swing Test");
+      //pros::screen::print(TEXT_MEDIUM, 50, 50, "Swing Test");
       break;
     case 4:
-      pros::screen::print(TEXT_MEDIUM, 50, 50, "Full Test");
+      pros::lcd::clear();
+      pros::lcd::set_text(1, "Full Test");
+      //pros::screen::print(TEXT_MEDIUM, 50, 50, "Full Test");
       break;
     case 5:
-      pros::screen::print(TEXT_MEDIUM, 50, 50, "Odom Test");
+      pros::lcd::clear();
+      pros::lcd::set_text(1, "Odom Test");
+      //pros::screen::print(TEXT_MEDIUM, 50, 50, "Odom Test");
       break;
     case 6:
-      pros::screen::print(TEXT_MEDIUM, 50, 50, "Tank Odom Test");
+      pros::lcd::clear();
+      pros::lcd::set_text(1, "Tank Odom Test");
+      //pros::screen::print(TEXT_MEDIUM, 50, 50, "Tank Odom Test");
       break;
     case 7:
-      pros::screen::print(TEXT_MEDIUM, 50, 50, "Holonomic Odom Test");
+      pros::lcd::clear();
+      pros::lcd::set_text(1, "Holonomic Odom Test");
+      //pros::screen::print(TEXT_MEDIUM, 50, 50, "Holonomic Odom Test");
       break;
     }
-    if (pros::screen::touch_status().touch_status == TOUCH_PRESSED || pros::screen::touch_status().touch_status == TOUCH_HELD)
+    
+    if (pros::lcd::read_buttons() == LCD_BTN_LEFT)
     {
-      pros::last_touch_e_t status = pros::screen::touch_status().touch_status;
-      while (status == TOUCH_HELD)
-      {
-      }
+      current_auton_selection--;
+    }
+    else if (pros::lcd::read_buttons() == LCD_BTN_RIGHT)
+    {
       current_auton_selection++;
     }
+    // else if (pros::lcd::read_buttons() == LCD_BTN_CENTER)
+    // {
+    //   autonomous();
+    // }
     else if (current_auton_selection == 8)
     {
       current_auton_selection = 0;
     }
+    else if (current_auton_selection == -1)
+    {
+      current_auton_selection = 7;
+    }
+    
+    
+    // if (pros::screen::touch_status().touch_status == TOUCH_PRESSED || pros::screen::touch_status().touch_status == TOUCH_HELD)
+    // {
+    //   pros::last_touch_e_t status = pros::screen::touch_status().touch_status;
+    //   while (status == TOUCH_HELD)
+    //   {
+    //   }
+    //   current_auton_selection++;
+    // }
+    // else if (current_auton_selection == 8)
+    // {
+    //   current_auton_selection = 0;
+    // }
     pros::Task::delay(10);
   }
 }
